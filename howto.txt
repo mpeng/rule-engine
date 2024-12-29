@@ -1,0 +1,2 @@
+Step 1: tsc spec/TeosRuleCheck.spec.ts    // This will build compile all ts files to js files.
+Step 2: npm test
