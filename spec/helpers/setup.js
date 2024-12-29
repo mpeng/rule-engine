@@ -1,12 +1,16 @@
 var Jasmine = require('jasmine');
-// Example of adding a custom matcher
-beforeEach(function () {
-    // Example: Mocking a console.warn in tests
-    spyOn(console, 'warn').and.callThrough();
+// Add custom matchers globally
+beforeAll(function () {
     jasmine.addMatchers({
         toBeDivisibleBy: function () {
             return {
                 compare: function (actual, expected) {
+                    if (expected === 0) {
+                        return {
+                            pass: false,
+                            message: "Division by zero is undefined.",
+                        };
+                    }
                     var result = {
                         pass: actual % expected === 0,
                         message: "Expected ".concat(actual, " to be divisible by ").concat(expected),
@@ -19,6 +23,10 @@ beforeEach(function () {
             };
         },
     });
+});
+// Example: Mocking a console.warn in tests
+beforeEach(function () {
+    spyOn(console, 'warn').and.callThrough();
 });
 // Example: Setting up a global variable for all tests
 globalThis.testEnv = {
